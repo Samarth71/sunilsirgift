@@ -1,0 +1,134 @@
+/* ============================================================
+   WILD FEATURES — styles
+   ============================================================ */
+
+/* Comic-book juicy done animation */
+@keyframes comicShake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-6px, 3px) rotate(-1deg); }
+  40% { transform: translate(5px, -3px) rotate(1deg); }
+  60% { transform: translate(-4px, 2px) rotate(-0.5deg); }
+  80% { transform: translate(3px, -2px) rotate(0.5deg); }
+}
+body.comic-shake { animation: comicShake 0.4s ease; }
+
+.comic-boom {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.comic-boom.show { opacity: 1; }
+.comic-boom-text {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 800;
+  font-size: 3.2rem;
+  color: var(--ink, #14152b);
+  background: var(--accent-yellow, #ffd23f);
+  padding: 0.4rem 1.4rem;
+  border: 5px solid var(--ink, #14152b);
+  border-radius: 16px;
+  box-shadow: 8px 8px 0 var(--ink, #14152b);
+  transform: scale(0.4) rotate(-8deg);
+  transition: transform 0.25s cubic-bezier(.2,1.8,.4,1);
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.4);
+}
+.comic-boom.show .comic-boom-text { transform: scale(1) rotate(-4deg); }
+
+/* Doodle Canvas */
+.doodle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  display: none;
+  touch-action: none;
+  cursor: crosshair;
+  background: transparent;
+}
+.doodle-canvas.active { display: block; }
+
+.doodle-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 10.4rem;
+  z-index: 150;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid var(--ink, #14152b);
+  background: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink, #14152b);
+  transition: transform 0.15s cubic-bezier(.3,1.3,.4,1);
+}
+.doodle-fab:hover { transform: scale(1.1) rotate(8deg); }
+.doodle-fab:active { transform: scale(0.9); }
+@media (min-width: 1024px) { .doodle-fab { bottom: 5.2rem; } }
+
+.doodle-toolbar {
+  position: fixed;
+  bottom: 0.7rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  z-index: 360;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background: var(--bg-card, #fff);
+  border: 3px solid var(--ink, #14152b);
+  border-radius: 999px;
+  padding: 0.5rem 0.7rem;
+  box-shadow: 5px 5px 0 var(--ink, #14152b);
+  transition: transform 0.25s cubic-bezier(.2,.8,.3,1);
+}
+.doodle-toolbar.active { transform: translateX(-50%) translateY(0); }
+.doodle-color {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--ink, #14152b);
+  cursor: pointer;
+}
+.doodle-color.active { box-shadow: 0 0 0 3px var(--bg-card, #fff), 0 0 0 5px var(--ink, #14152b); }
+.doodle-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--ink, #14152b);
+  background: var(--bg-elevated, #f4f4f4);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.doodle-btn:active { transform: scale(0.9); }
+
+/* ------------------------------------------------------------
+   Contrast guard: anything sitting on the yellow accent always
+   uses fixed dark text. In dark mode --ink is light, which would
+   otherwise make text on yellow unreadable (light on light).
+   ------------------------------------------------------------ */
+.btn-primary,
+.streak-badge,
+.filter-btn.active,
+.nav-item.active,
+.onboarding-step h3,
+.hub-tab.active,
+.hub-badge.unlocked,
+.hub-badge.unlocked .hub-badge-label,
+.hub-countdown-card,
+.hub-countdown-card b,
+.hub-celebration-card,
+.hub-celebration-title,
+.hub-celebration-label,
+.hub-celebration-desc,
+.comic-boom-text {
+  color: #14152b;
+}
+.nav-item.active::after { background: #14152b; }
+.hub-celebration-card, .comic-boom-text { border-color: #14152b; }
+html.dark .hub-celebration-card, body.dark .hub-celebration-card { box-shadow: 8px 8px 0 #14152b, 0 0 0 3px #f5f6ff; }
+html.dark .comic-boom-text, body.dark .comic-boom-text { box-shadow: 8px 8px 0 #14152b, 0 0 0 3px #f5f6ff; }
